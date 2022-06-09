@@ -1,0 +1,118 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="mat-elevation-z8" style="margin-bottom:10px;min-width:600px">
+      <div class="row">
+        <div class="col-xs-12" style="padding:0px 40px 0px 40px;">
+          <div style="float:left"><h3>Adventure Works Product Catalog</h3></div>
+          <div style="float:left;margin-top:20px;margin-left:10px">
+            <mat-progress-spinner *ngIf="!productsLoaded" mode="indeterminate" diameter="25"></mat-progress-spinner>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6" style="padding-left:40px">
+          <mat-form-field>
+            <input #searchValue matInput placeholder="Search Catalog" (keypress)="searchIfEnter($event, searchValue.value)">
+            <button mat-button matSuffix mat-icon-button aria-label="Search" (click)="search(searchValue.value)">
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="col-xs-6" style="padding-right:40px;text-align:right">
+          <button mat-button aria-label="Image View" (click)="viewImages()" matTooltip="Image View">
+            <mat-icon>view_comfy</mat-icon>
+          </button>
+          <button mat-button aria-label="List View" (click)="viewList()" matTooltip="List View">
+            <mat-icon>list</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+
+    <!-- image view template -->
+    <div *ngIf="imageView && products && products.length" style="margin-bottom:10px;min-width:600px">
+      <div *ngFor="let product of products" style="display:inline-block;margin:10px">
+        <mat-card style="width:240px">
+          <mat-card-header>
+            <mat-card-title>{{product.Name}}</mat-card-title>
+            <mat-card-subtitle>{{product.ListPrice | currency}}</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="data:image/gif;base64,{{product.LargePhoto}}" alt="" style="padding:5px">
+          <mat-card-content>
+            <p>
+              {{product.ProductNumber}}
+              | {{product.ProductCategory}}
+              | {{product.ProductModel}}
+              | {{product.Color}}
+              | Sz {{product.Size}}
+              | Wt {{product.Weight}}
+            </p>
+          </mat-card-content>
+          <mat-card-actions style="text-align:right">
+            <button mat-button mat-icon-button matTooltip="Like"><mat-icon style="color:rgba(255, 0, 0, 0.50)">favorite</mat-icon></button>
+            <button mat-button mat-icon-button matTooltip="Share"><mat-icon style="color:rgba(0, 0, 255, 0.50)">share</mat-icon></button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8" *ngIf="products && products.length" style="margin-top:10px;margin-bottom:25px;min-width:600px">
+
+      <!-- list view template -->
+      <mat-table *ngIf="!imageView" [dataSource]="dataSource" matSort (matSortChange)="sortEvent($event)" matSortDisableClear="true">
+        <!-- column definitions -->
+        <ng-container matColumnDef="productNumber">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Product Number</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.ProductNumber}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.Name}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="color">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Color</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.Color}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="standardCost">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Standard Cost</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.StandardCost | currency}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="listPrice">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>List Price</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.ListPrice | currency}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="size">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Size</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.Size}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="weight">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Weight</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.Weight}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="productCategory">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Product Category</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.ProductCategory}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="productModel">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Product Model</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.ProductModel}}</mat-cell>
+        </ng-container>
+
+        <!-- row definitions -->
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+
+      <mat-paginator [length]="totalRecords"
+                     [pageSize]="pageSize"
+                     [pageSizeOptions]="pageSizeOptions"
+                     [pageIndex]="page-1"
+                     (page)="pageEvent($event)">
+      </mat-paginator>
+    </div>
+  </div>
+</div>
