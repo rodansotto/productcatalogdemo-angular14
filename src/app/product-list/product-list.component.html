@@ -41,7 +41,7 @@
             <mat-card-title>{{product.Name}}</mat-card-title>
             <mat-card-subtitle>{{product.ListPrice | currency}}</mat-card-subtitle>
           </mat-card-header>
-          <img mat-card-image src="data:image/gif;base64,{{product.LargePhoto}}" alt="" style="padding:5px">
+          <img mat-card-image *ngIf="product.LargePhoto" src="data:image/gif;base64,{{product.LargePhoto}}" alt="" style="padding:5px">
           <mat-card-content>
             <p>
               {{product.ProductNumber}}

@@ -66,9 +66,10 @@ export class ProductListComponent implements OnInit {
 
   // copied this from https://stackoverflow.com/a/23190164
   hexToBase64(str: any): string {
-    return window.btoa(String.fromCharCode.apply(null,
-      str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" "))
-    );
+    return str 
+      ? window.btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")))
+      : str
+    ;
   }
 
   pageEvent(event: PageEvent): void {
