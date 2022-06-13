@@ -52,7 +52,8 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "https://rodansotto.github.io/productcatalogdemo-angular14/"
             },
             "development": {
               "buildOptimizer": false,
