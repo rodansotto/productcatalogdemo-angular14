@@ -25,3 +25,12 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+## To deploy to GitHub Pages:
+1. npm i angular-cli-ghpages --save-dev (only done once)
+2. ng build --configuration production (make sure `baseHref` is set in `angular.json` to "https://GitHubUserName.github.io/GitHubfolderName/")
+3. npx angular-cli-ghpages --dir=dist/Project-name
+
+## To run locally:
+ng serve --configuration development -o
