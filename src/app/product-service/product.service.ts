@@ -48,7 +48,7 @@ export class ProductService {
           pm.Name as "ProductModel",
           ${includeImages ? 'pp.LargePhoto' : 'null'} as "LargePhoto"
         ${fromSQL}
-        order by p.ProductNumber
+        order by ${this.orderBy(sort)} ${sortDir}
         limit ${pageSize} offset ${pageSize*(page-1)}
       `);
       let productList: IProductListView[] = [];
@@ -63,4 +63,19 @@ export class ProductService {
         List: productList,
       };
   };
+
+  orderBy(sort: string): string {
+    switch(sort) {
+      case 'listPrice':
+        return 'cast(p.ListPrice as numeric)';
+      case 'weight':
+        return 'cast(p.Weight as numeric)';
+      case 'productCategory':
+        return 'pc.Name';
+      case 'productModel':
+        return `pm.Name`;
+      default:
+        return `p.${sort}`;
+    }
+  }
 }
