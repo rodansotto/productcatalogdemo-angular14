@@ -27,7 +27,7 @@
     <div *ngIf="imageView && products && products.length" class="image-view" style="margin-bottom: 20px;">
       <div *ngFor="let product of products">
         <mat-card>
-          <mat-card-header>
+          <mat-card-header style="white-space: nowrap;">
             <mat-card-title>{{product.Name}}</mat-card-title>
             <mat-card-subtitle>{{product.ListPrice | currency}}</mat-card-subtitle>
           </mat-card-header>
