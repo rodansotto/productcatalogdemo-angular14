@@ -1,16 +1,16 @@
-<div class="container-fluid" style="background-color:#333;color:white;">
-  <div class="header clearfix">
-    <nav>
-      <ul class="nav nav-pills pull-right">
-        <li role="presentation"><a href="/default.aspx">Home</a></li>
-        <li role="presentation"><a href="/myprojects.aspx">My Projects</a></li>
-      </ul>
-    </nav>
-    <h4 class="text-muted">Rodan Sotto</h4>
-    <h2 class="text-muted">Product Catalog (An Angular and Material Demo)</h2>
-  </div>
+<div>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row style="height: 40px;">
+      <span>Rodan Sotto</span>
+      <span style="flex: 1 1 auto"></span>
+      <a mat-button href="/index.html">Home</a>
+      <a mat-button href="/myprojects.html">My Projects</a>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+      <span style="font-size:1.5em">Product Catalog (An Angular and Material Demo)</span>
+    </mat-toolbar-row>      
+  </mat-toolbar>
 </div>
-<br />
-<div class="container-fluid">
+<div style="padding:20px">
   <router-outlet></router-outlet>
 </div>

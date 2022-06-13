@@ -1,47 +1,39 @@
-<div class="row">
-  <div class="col-xs-12">
-    <div class="mat-elevation-z8" style="margin-bottom:10px;min-width:600px">
-      <div class="row">
-        <div class="col-xs-12" style="padding:0px 40px 0px 40px;">
-          <div style="float:left"><h3>Adventure Works Product Catalog</h3></div>
-          <div style="float:left;margin-top:20px;margin-left:10px">
-            <mat-progress-spinner *ngIf="!productsLoaded" mode="indeterminate" diameter="25"></mat-progress-spinner>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-6" style="padding-left:40px">
-          <mat-form-field>
-            <input #searchValue matInput placeholder="Search Catalog" (keypress)="searchIfEnter($event, searchValue.value)">
-            <button mat-button matSuffix mat-icon-button aria-label="Search" (click)="search(searchValue.value)">
-              <mat-icon>search</mat-icon>
-            </button>
-          </mat-form-field>
-        </div>
-        <div class="col-xs-6" style="padding-right:40px;text-align:right">
-          <button mat-button aria-label="Image View" (click)="viewImages()" matTooltip="Image View">
-            <mat-icon>view_comfy</mat-icon>
-          </button>
-          <button mat-button aria-label="List View" (click)="viewList()" matTooltip="List View">
-            <mat-icon>list</mat-icon>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="mat-elevation-z8" style="margin-bottom: 20px;">
+  <mat-toolbar style="background-color: white;">
+    <mat-toolbar-row>
+      <span style="font-size: 1.25em;">Adventure Works Product Catalog</span>
+      <mat-progress-spinner style="margin-left: 10px;" *ngIf="!productsLoaded" mode="indeterminate" diameter="25"></mat-progress-spinner>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+      <mat-form-field style="font-size: 14px;">
+        <mat-label>Search Catalog</mat-label>
+        <input #searchValue matInput (keypress)="searchIfEnter($event, searchValue.value)">
+        <button matSuffix mat-icon-button aria-label="Search" (click)="search(searchValue.value)">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+      <span style="flex: 1 1 auto;"></span>
+      <button mat-icon-button aria-label="Image View" (click)="viewImages()" matTooltip="Image View">
+        <mat-icon>view_comfy</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="List View" (click)="viewList()" matTooltip="List View">
+        <mat-icon>list</mat-icon>
+      </button>  
+    </mat-toolbar-row>
+  </mat-toolbar>
 </div>
-<div class="row">
-  <div class="col-xs-12">
-
+<div>
     <!-- image view template -->
-    <div *ngIf="imageView && products && products.length" style="margin-bottom:10px;min-width:600px">
-      <div *ngFor="let product of products" style="display:inline-block;margin:10px">
-        <mat-card style="width:240px">
+    <div *ngIf="imageView && products && products.length" class="image-view" style="margin-bottom: 20px;">
+      <div *ngFor="let product of products">
+        <mat-card>
           <mat-card-header>
             <mat-card-title>{{product.Name}}</mat-card-title>
             <mat-card-subtitle>{{product.ListPrice | currency}}</mat-card-subtitle>
           </mat-card-header>
-          <img mat-card-image *ngIf="product.LargePhoto" src="data:image/gif;base64,{{product.LargePhoto}}" alt="" style="padding:5px">
+          <div style="padding: 10px;">
+            <img mat-card-image *ngIf="product.LargePhoto" src="data:image/gif;base64,{{product.LargePhoto}}" alt="">
+          </div>
           <mat-card-content>
             <p>
               {{product.ProductNumber}}
@@ -60,8 +52,7 @@
       </div>
     </div>
 
-    <div class="mat-elevation-z8" *ngIf="products && products.length" style="margin-top:10px;margin-bottom:25px;min-width:600px">
-
+    <div class="mat-elevation-z8" *ngIf="products && products.length">
       <!-- list view template -->
       <mat-table *ngIf="!imageView" [dataSource]="dataSource" matSort (matSortChange)="sortEvent($event)" matSortDisableClear="true">
         <!-- column definitions -->
@@ -113,6 +104,5 @@
                      [pageIndex]="page-1"
                      (page)="pageEvent($event)">
       </mat-paginator>
-    </div>
-  </div>
+    </div>  
 </div>
